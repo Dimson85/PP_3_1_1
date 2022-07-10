@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NEW USER</title>
+</head>
+<body>
+<br>
+<div align="center">
+    <h2>New User</h2>
+    <form th:action="@{/users/saveUser}" method="post">
+        <table border="5" cellpadding="15">
+            <tr>
+                <td>Name:</td>
+                <td><input name="name"/></td>
+            </tr>
+            <tr>
+                <td>Surname:</td>
+                <td><input name="surname"/></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Save"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
