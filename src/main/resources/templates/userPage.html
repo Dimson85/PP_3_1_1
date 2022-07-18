@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>USER</title>
+</head>
+<body>
+<br>
+<div align="center">
+    <h2>User</h2>
+        <table border="5" cellpadding="15">
+            <tr>
+                <td>ID:</td>
+                <td><input type="number" th:field="${user.id}" readonly/></td>
+            </tr>
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" th:field="${user.name}" readonly/></td>
+            </tr>
+            <tr>
+                <td>Surname:</td>
+                <td><input type="text" th:field="${user.surname}" readonly/></td>
+            </tr>
+        </table>
+    </form>
+    <br>
+    <button><a href="/logout">Сменить пользователя</a></button>
+</div>
+</body>
+</html>

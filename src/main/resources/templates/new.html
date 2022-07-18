@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>NEW USER</title>
@@ -8,27 +8,38 @@
 <br>
 <div align="center">
     <h2>New User</h2>
-    <form th:action="@{home/admin/saveUser}" method="post">
+    <form th:action="@{/admin/new}" method="post" th:object="${user}">
         <table border="5" cellpadding="15">
             <tr>
                 <td>Name:</td>
-                <td><input name="name" th:fild="*{name}"/></td>
+                <td><input type="text" name="name" th:field="*{name}"/></td>
             </tr>
             <tr>
                 <td>Surname:</td>
-                <td><input name="surname" th:fild="*{surname}"/></td>
+                <td><input type="text" name="surname" th:field="*{surname}"/></td>
             </tr>
             <tr>
                 <td>Password:</td>
-                <td><input name="password"/></td>
+                <td><input type= "text" name="password" th:field="*{password}"/></td>
             </tr>
+            <br>
+            </br>
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Roles: </label>
+                <div class="col-8">
+                    <th:block th:each="role: ${listRoles}">
+                        <input type="checkbox" th:field="*{roles}"
+                               th:text="${role.name}" th:value="${role.id}" class="m-2" />
+                    </th:block>
+                </div>
+            </div>
+            </br>
+            </br>
             <tr>
-                <td colspan="2"><input type="submit" value="Save"></td>
+                <td colspan="2"><input type="submit" value="Add"></td>
             </tr>
         </table>
     </form>
-    <br>
-    <button><a href="/logout">Сменить пользователя</a></button>
 </div>
 </body>
 </html>
