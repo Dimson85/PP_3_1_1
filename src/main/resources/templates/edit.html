@@ -8,7 +8,7 @@
 <br>
 <div align="center">
     <h2>Edit User</h2>
-    <form th:method="POST" th:action="@{/users/{id}(id=${user.getId()})}" th:object="${user}">
+    <form th:method="POST" th:action="@{home/admin/users/{id}(id=${user.getId()})}" th:object="${user}">
         <table border="5" cellpadding="15">
             <tr>
                 <td>ID:</td>
@@ -22,12 +22,18 @@
                 <td>Surname:</td>
                 <td><input type="text" th:field="${user.surname}"/></td>
             </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="text" th:field="${user.password}" hidden></td>
+            </tr>
 
             <tr>
                 <td colspan="2"><input type="submit" value="Update"></td>
             </tr>
         </table>
     </form>
+    <br>
+    <button><a href="/logout">Сменить пользователя</a></button>
 </div>
 </body>
 </html>

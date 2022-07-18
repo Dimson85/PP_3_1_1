@@ -8,21 +8,27 @@
 <br>
 <div align="center">
     <h2>New User</h2>
-    <form th:action="@{/users/saveUser}" method="post">
+    <form th:action="@{home/admin/saveUser}" method="post">
         <table border="5" cellpadding="15">
             <tr>
                 <td>Name:</td>
-                <td><input name="name"/></td>
+                <td><input name="name" th:fild="*{name}"/></td>
             </tr>
             <tr>
                 <td>Surname:</td>
-                <td><input name="surname"/></td>
+                <td><input name="surname" th:fild="*{surname}"/></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input name="password"/></td>
             </tr>
             <tr>
                 <td colspan="2"><input type="submit" value="Save"></td>
             </tr>
         </table>
     </form>
+    <br>
+    <button><a href="/logout">Сменить пользователя</a></button>
 </div>
 </body>
 </html>
