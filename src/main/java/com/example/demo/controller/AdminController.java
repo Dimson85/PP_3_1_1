@@ -4,6 +4,7 @@ import com.example.demo.model.Role;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,13 @@ public class AdminController {
 
     @GetMapping("/users")
     public String getAllUsers(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("allUsers", userService.getAllUsers());
+        User user = (User) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        model.addAttribute("userMain",user);
+        model.addAttribute("roles", userService.getRoles());
         return "allUsers";
     }
 
@@ -30,31 +37,32 @@ public class AdminController {
     public String newUser(@ModelAttribute("user") User user, Model model) {
         List<Role> listRoles = userService.getRoles();
         model.addAttribute("listRoles", listRoles);
-        return "new";
+        return "redirect:/admin/users";
     }
 
     @PostMapping("/new")
-    public String saveUser(@ModelAttribute("user") User user) {
+    public String saveUser(@ModelAttribute("user") User user, @RequestParam("listRoles") Long[] rolesId) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.saveUser(user);
+        userService.saveUser(user, rolesId);
         return "redirect:/admin/users";
     }
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/edit/{id}")
     public String editUser(@PathVariable Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         model.addAttribute("listRoles",userService.getRoles());
-        return "edit";
-    }
-
-    @PostMapping("/{id}")
-    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
-        userService.saveUser(user);
         return "redirect:/admin/users";
     }
 
-    @GetMapping("/remove/{id}")
+    @PostMapping("/edit")
+    public String updateUser(@ModelAttribute("user") User user, @RequestParam("listRoles") Long[] rolesId) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userService.updateUser(user, rolesId);
+        return "redirect:/admin/users";
+    }
+
+    @PostMapping("/remove/{id}")
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return "redirect:/admin/users";
